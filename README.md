@@ -55,20 +55,19 @@ return [
 
 To paginate the results accoring the the json API spec, simply call the `jsonPaginate` method.
 
-``` php
+```php
 YourModel::jsonPaginate();
 ```
 
 Of course you may still use all the builder methods you know and love:
 
-``` php
+```php
 YourModel::where('my_field', 'myValue')->jsonPaginate();
 ```
 
 By default the maximum page size is set to 30. You can change this number in the `config` file or just pass the a value to  `jsonPaginate`.
 
 ```php
-``` php
 $maxResults = 60;
 
 YourModel::jsonPaginate($maxResults);
@@ -80,7 +79,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 ## Testing
 
-``` bash
+```bash
 composer test
 ```
 
