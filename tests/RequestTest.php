@@ -2,7 +2,7 @@
 
 namespace Spatie\JsonApiPaginate\Test;
 
-class RequestTestTest extends TestCase
+class RequestTest extends TestCase
 {
     /** @test */
     public function it_can_return_paginated_results()

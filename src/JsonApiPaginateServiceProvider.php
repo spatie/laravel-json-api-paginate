@@ -2,8 +2,8 @@
 
 namespace Spatie\JsonApiPaginate;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Builder;
 
 class JsonApiPaginateServiceProvider extends ServiceProvider
 {
@@ -13,7 +13,6 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
-
             $this->publishes([
                 __DIR__.'/../config/json-api-paginate.php' => config_path('json-api-paginate.php'),
             ], 'config');
@@ -27,7 +26,7 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/json-api-paginate.php', 'json-api-paginate');
+        $this->mergeConfigFrom(__DIR__.'/../config/json-api-paginate.php', 'json-api-paginate');
     }
 
     protected function registerMacro()
@@ -47,7 +46,7 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
 
             return $this->paginate($size, ['*'], 'page.number')
                 ->setPageName('page[number]')
-                ->appends(array_except(request()->input(), 'page.number'));;
+                ->appends(array_except(request()->input(), 'page.number'));
         });
     }
 }
