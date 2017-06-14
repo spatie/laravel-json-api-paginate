@@ -96,7 +96,7 @@ If you discover any security related issues, please email freek@spatie.be instea
 - [Freek Van der Herten](https://github.com/freekmurze)
 - [All Contributors](../../contributors)
 
-The base code of this page was published on [this Laracasts forum thread](https://laracasts.com/discuss/channels/laravel/pagination-using-json-api-strategy?page=1#reply-346619) by [Joram van den Boezem](@hongaar)
+The base code of this page was published on [this Laracasts forum thread](https://laracasts.com/discuss/channels/laravel/pagination-using-json-api-strategy?page=1#reply-346619) by [Joram van den Boezem](https://twitter.com/@hongaar)
 
 ## About Spatie
 
