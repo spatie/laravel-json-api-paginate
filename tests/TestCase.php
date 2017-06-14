@@ -2,13 +2,12 @@
 
 namespace Spatie\JsonApiPaginate\Test;
 
-use Carbon\Carbon;
-use File;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Foundation\Application;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Route;
+use Carbon\Carbon;
+use Illuminate\Foundation\Application;
 use Spatie\Snapshots\MatchesSnapshots;
+use Illuminate\Database\Schema\Blueprint;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
