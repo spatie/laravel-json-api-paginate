@@ -7,7 +7,6 @@ class BuilderTest extends TestCase
     /** @test */
     public function it_can_paginate_records()
     {
-        /** @var \Illuminate\Pagination\LengthAwarePaginator $result */
         $paginator = TestModel::jsonPaginate();
 
         $this->assertEquals('http://localhost?page%5Bnumber%5D=2', $paginator->nextPageUrl());
@@ -16,7 +15,6 @@ class BuilderTest extends TestCase
     /** @test */
     public function it_returns_the_amount_of_records_specified_in_the_config_file()
     {
-        /** @var \Illuminate\Pagination\LengthAwarePaginator $result */
         $paginator = TestModel::jsonPaginate();
 
         $this->assertCount(30, $paginator);
