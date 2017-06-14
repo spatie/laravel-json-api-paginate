@@ -22,7 +22,7 @@
         "spatie/phpunit-snapshot-assertions": "^1.0"
     },
     "require-dev": {
-        "orchestra/testbench": "~3.4",
+        "orchestra/testbench": "~3.4.7",
         "phpunit/phpunit": "^6.1"
     },
     "autoload": {
