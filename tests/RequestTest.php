@@ -9,7 +9,7 @@ class RequestTest extends TestCase
     {
         $response = $this->get('/');
 
-        $this->assertMatchesSnapshot(json_encode($response));
+        $this->assertMatchesJsonSnapshot(json_encode($response));
     }
 
     /** @test */
