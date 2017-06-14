@@ -7,7 +7,9 @@
 [![StyleCI](https://styleci.io/repos/94352951/shield?branch=master)](https://styleci.io/repos/94352951)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-json-api-paginate.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-json-api-paginate)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+In a vanilla Laravel application [the query builder paginators will listen to `page` request parameter](https://laravel.com/docs/5.4/pagination#paginating-query-builder-results). This works great, but it does not comply with [the json:api spec](http://jsonapi.org/). That spec [expects](http://jsonapi.org/examples/#pagination) the query builder paginator to listen to the `page['number']` and `page[size]` request parameters. 
+
+This package adds a `jsonPaginate` method to the Eloquent query builder that listens to those parameters and adds [the pagination links the spec requires](http://jsonapi.org/format/#fetching-pagination).
 
 ## Postcardware
 
@@ -25,11 +27,51 @@ You can install the package via composer:
 composer require spatie/laravel-json-api-paginate
 ```
 
+Optionally you can publish the config file with:
+
+```bash
+php artisan vendor:publish --provider="Spatie\JsonApiPaginate\JsonApiPaginateServiceProvider" --tag="config"
+```
+
+This is the contents of the file that will be published in `config/json-api-paginate.php`
+
+```php
+return [
+
+    /*
+     * The maximum number of results that will be returned
+     * when using the JSON API paginator.
+     */
+    'max_results' => 30,
+
+    /*
+     * The name of the macro that is added to the Eloquent page builder
+     */
+    'function_name' => 'jsonPaginate',
+];
+```
+
 ## Usage
 
+To paginate the results accoring the the json API spec, simply call the `jsonPaginate` method.
+
 ``` php
-$skeleton = new Spatie\Skeleton();
-echo $skeleton->echoPhrase('Hello, Spatie!');
+YourModel::jsonPaginate();
+```
+
+Of course you may still use all the builder methods you know and love:
+
+``` php
+YourModel::where('my_field', 'myValue')->jsonPaginate();
+```
+
+By default the maximum page size is set to 30. You can change this number in the `config` file or just pass the a value to  `jsonPaginate`.
+
+```php
+``` php
+$maxResults = 60;
+
+YourModel::jsonPaginate($maxResults);
 ```
 
 ## Changelog
@@ -39,7 +81,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 ## Testing
 
 ``` bash
-$ composer test
+composer test
 ```
 
 ## Contributing
@@ -52,8 +94,10 @@ If you discover any security related issues, please email freek@spatie.be instea
 
 ## Credits
 
-- [:Freek Van der Herten](https://github.com/freekmurze)
+- [Freek Van der Herten](https://github.com/freekmurze)
 - [All Contributors](../../contributors)
+
+The base code of this page was published on [this Laracasts forum thread](https://laracasts.com/discuss/channels/laravel/pagination-using-json-api-strategy?page=1#reply-346619) by [Joram van den Boezem](@hongaar)
 
 ## About Spatie
 
