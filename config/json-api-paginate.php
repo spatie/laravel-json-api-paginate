@@ -11,5 +11,5 @@ return [
     /*
      * The name of the macro that is added to the Eloquent query builder.
      */
-    'function_name' => 'jsonPaginate',
+    'method_name' => 'jsonPaginate',
 ];

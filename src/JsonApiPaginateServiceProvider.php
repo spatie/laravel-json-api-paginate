@@ -31,7 +31,7 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
 
     protected function registerMacro()
     {
-        Builder::macro(config('json-api-paginate.function_name'), function (int $maxResults = null) {
+        Builder::macro(config('json-api-paginate.method_name'), function (int $maxResults = null) {
             $configuredMaximum = config('json-api-paginate.max_results');
 
             if (is_null($maxResults)) {
