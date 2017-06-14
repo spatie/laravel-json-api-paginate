@@ -18,8 +18,7 @@
     "require": {
         "php": "^7.0",
         "illuminate/database": "~5.4.17",
-        "illuminate/support": "~5.4.17",
-        "spatie/phpunit-snapshot-assertions": "^1.0"
+        "illuminate/support": "~5.4.17"
     },
     "require-dev": {
         "orchestra/testbench": "~3.4.7",
