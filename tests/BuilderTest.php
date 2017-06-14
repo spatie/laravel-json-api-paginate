@@ -34,7 +34,6 @@ class BuilderTest extends TestCase
     /** @test */
     public function it_will_not_return_more_records_that_the_configured_maximum()
     {
-        /** @var \Illuminate\Pagination\LengthAwarePaginator $result */
         $paginator = TestModel::jsonPaginate(40);
 
         $this->assertCount(30, $paginator);
