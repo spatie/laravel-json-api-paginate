@@ -25,7 +25,6 @@ class BuilderTest extends TestCase
     /** @test */
     public function it_can_return_the_specified_amount_of_records()
     {
-        /** @var \Illuminate\Pagination\LengthAwarePaginator $result */
         $paginator = TestModel::jsonPaginate(15);
 
         $this->assertCount(15, $paginator);
