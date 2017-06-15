@@ -33,20 +33,22 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
     {
         Builder::macro(config('json-api-paginate.method_name'), function (int $maxResults = null) {
             $configuredMaximum = config('json-api-paginate.max_results');
+            $numberParameter = config('json-api-paginate.number_parameter');
+            $sizeParameter = config('json-api-paginate.size_parameter');
 
             if (is_null($maxResults)) {
                 $maxResults = $configuredMaximum;
             }
 
-            $size = request()->input('page.size', $maxResults);
+            $size = request()->input('page.'.$sizeParameter, $maxResults);
 
             if ($size > $configuredMaximum) {
                 $size = $configuredMaximum;
             }
 
-            return $this->paginate($size, ['*'], 'page.number')
-                ->setPageName('page[number]')
-                ->appends(array_except(request()->input(), 'page.number'));
+            return $this->paginate($size, ['*'], 'page.'.$numberParameter)
+                ->setPageName('page['.$numberParameter.']')
+                ->appends(array_except(request()->input(), 'page.'.$numberParameter));
         });
     }
 }
