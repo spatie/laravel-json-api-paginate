@@ -27,6 +27,16 @@ You can install the package via composer:
 composer require spatie/laravel-json-api-paginate
 ```
 
+Next, you must install the service provider:
+
+```php
+// config/app.php
+'providers' => [
+    ...
+    Spatie\JsonApiPaginate\JsonApiPaginateServiceProvider::class,
+];
+```
+
 Optionally you can publish the config file with:
 
 ```bash
