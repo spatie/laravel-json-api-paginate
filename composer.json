@@ -17,12 +17,12 @@
     ],
     "require": {
         "php": "^7.0",
-        "illuminate/database": "~5.4.17",
-        "illuminate/support": "~5.4.17"
+        "illuminate/database": "~5.4.17|~5.5.x-dev|~5.5.x-dev",
+        "illuminate/support": "~5.4.17|~5.5.x-dev|~5.5.x-dev"
     },
     "require-dev": {
-        "orchestra/testbench": "~3.4.7",
-        "phpunit/phpunit": "^6.1"
+        "orchestra/testbench": "~3.4.7|~3.5.x-dev|~3.5.x-dev",
+        "phpunit/phpunit": "^6.2"
     },
     "autoload": {
         "psr-4": {
@@ -48,3 +48,4 @@
         }
     }
 }
+
