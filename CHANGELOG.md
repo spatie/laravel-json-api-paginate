@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.2.1 - 2017-10-16
+
+- fix for setting max results
+
 ## 1.2.0 - 2017-08-21
 
 - add support for Laravel 5.5
