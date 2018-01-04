@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.3.0 - 2018-01-04
+
+- add `default_size` config and parameter option
+
 ## 1.2.1 - 2017-10-16
 
 - fix for setting max results
