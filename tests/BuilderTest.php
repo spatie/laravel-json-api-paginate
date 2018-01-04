@@ -15,9 +15,11 @@ class BuilderTest extends TestCase
     /** @test */
     public function it_returns_the_amount_of_records_specified_in_the_config_file()
     {
+        config()->set('json-api-paginate.default_size', 10);
+
         $paginator = TestModel::jsonPaginate();
 
-        $this->assertCount(30, $paginator);
+        $this->assertCount(10, $paginator);
     }
 
     /** @test */
@@ -31,8 +33,8 @@ class BuilderTest extends TestCase
     /** @test */
     public function it_will_not_return_more_records_that_the_configured_maximum()
     {
-        $paginator = TestModel::jsonPaginate(50);
+        $paginator = TestModel::jsonPaginate(15);
 
-        $this->assertCount(40, $paginator);
+        $this->assertCount(15, $paginator);
     }
 }

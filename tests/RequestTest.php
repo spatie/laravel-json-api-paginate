@@ -21,6 +21,14 @@ class RequestTest extends TestCase
     }
 
     /** @test */
+    public function it_will_use_the_default_page_size()
+    {
+        $response = $this->get('/');
+
+        $response->assertJsonFragment(['per_page' => 30]);
+    }
+
+    /** @test */
     public function it_will_use_the_configured_page_size_parameter()
     {
         config(['json-api-paginate.size_parameter' => 'modified_size']);
