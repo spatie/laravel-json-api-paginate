@@ -38,23 +38,24 @@ This is the contents of the file that will be published in `config/json-api-pagi
 
 ```php
 return [
-
     /*
      * The maximum number of results that will be returned
      * when using the JSON API paginator.
      */
     'max_results' => 30,
-    
+    /*
+     * The default number of results that will be returned
+     * when using the JSON API paginator.
+     */
+    'default_size' => 30,
     /*
      * The key of the page[x] query string parameter for page number.
      */
     'number_parameter' => 'number',
-
     /*
      * The key of the page[x] query string parameter for page size.
      */
     'size_parameter' => 'size',
-
     /*
      * The name of the macro that is added to the Eloquent query builder.
      */
