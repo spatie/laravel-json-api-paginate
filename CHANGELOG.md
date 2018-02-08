@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.3.1 - 2018-02-08
+
+- add support for Laravel 5.6
+
 ## 1.3.0 - 2018-01-04
 
 - add `default_size` config and parameter option

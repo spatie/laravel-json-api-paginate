@@ -19,7 +19,7 @@ You can install the package via composer:
 composer require spatie/laravel-json-api-paginate
 ```
 
-In Laravel 5.5 the service provider will automatically get registered. In older versions of the framework just add the service provider in `config/app.php` file:
+In Laravel 5.5 and above the service provider will automatically get registered. In older versions of the framework just add the service provider in `config/app.php` file:
 
 ```php
 'providers' => [
