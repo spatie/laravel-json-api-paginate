@@ -34,7 +34,7 @@ Optionally you can publish the config file with:
 php artisan vendor:publish --provider="Spatie\JsonApiPaginate\JsonApiPaginateServiceProvider" --tag="config"
 ```
 
-This is the contents of the file that will be published in `config/json-api-paginate.php`
+This is the content of the file that will be published in `config/json-api-paginate.php`
 
 ```php
 return [
@@ -65,7 +65,7 @@ return [
 
 ## Usage
 
-To paginate the results accoring the the json API spec, simply call the `jsonPaginate` method.
+To paginate the results according to the json API spec, simply call the `jsonPaginate` method.
 
 ```php
 YourModel::jsonPaginate();
