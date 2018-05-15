@@ -9,7 +9,7 @@ class RequestTest extends TestCase
     {
         $response = $this->get('/?page[size]=2');
 
-        $response->assertJsonFragment(['per_page' => '2']);
+        $response->assertJsonFragment(['per_page' => 2]);
     }
 
     /** @test */
@@ -35,7 +35,7 @@ class RequestTest extends TestCase
 
         $response = $this->get('/?page[modified_size]=2');
 
-        $response->assertJsonFragment(['per_page' => '2']);
+        $response->assertJsonFragment(['per_page' => 2]);
     }
 
     /** @test */
