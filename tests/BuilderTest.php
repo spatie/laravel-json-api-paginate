@@ -37,4 +37,14 @@ class BuilderTest extends TestCase
 
         $this->assertCount(15, $paginator);
     }
+
+    /** @test */
+    public function it_can_set_a_custom_base_url_in_the_config_file()
+    {
+        config()->set('json-api-paginate.base_url', 'https://example.com');
+
+        $paginator = TestModel::jsonPaginate();
+
+        $this->assertEquals('https://example.com?page%5Bnumber%5D=2', $paginator->nextPageUrl());
+    }
 }

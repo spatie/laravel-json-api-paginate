@@ -43,9 +43,15 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
                 $size = $maxResults;
             }
 
-            return $this->paginate($size, ['*'], 'page.'.$numberParameter)
+            $paginator = $this->paginate($size, ['*'], 'page.'.$numberParameter)
                 ->setPageName('page['.$numberParameter.']')
                 ->appends(array_except(request()->input(), 'page.'.$numberParameter));
+
+            if (! is_null(config('json-api-paginate.base_url'))) {
+                $paginator->setPath(config('json-api-paginate.base_url'));
+            }
+
+            return $paginator;
         });
     }
 }

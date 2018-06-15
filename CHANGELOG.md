@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.4.0 - 2018-06-15
+
+- add `base_url` config option
+
 ## 1.3.2 - 2018-05-15
 
 - fix casting of size parameter
