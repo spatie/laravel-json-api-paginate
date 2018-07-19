@@ -10,7 +10,7 @@
 In a vanilla Laravel application [the query builder paginators will listen to `page` request parameter](https://laravel.com/docs/5.4/pagination#paginating-query-builder-results). This works great, but it does not comply with [the json:api spec](http://jsonapi.org/). That spec [expects](http://jsonapi.org/examples/#pagination) the query builder paginator to listen to the `page[number]` and `page[size]` request parameters.
 
 Setting `page[size]=0` will use the model's perPage() value (default 15).
-Setting `page[size]=-1` will make the page size equals to the total number of records, returning all results.
+Setting `page[size]=-1` will make the page size equal to the total number of records, returning all results.
 
 This package adds a `jsonPaginate` method to the Eloquent query builder that listens to those parameters and adds [the pagination links the spec requires](http://jsonapi.org/format/#fetching-pagination).
 
