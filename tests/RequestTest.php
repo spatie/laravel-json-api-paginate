@@ -13,6 +13,14 @@ class RequestTest extends TestCase
     }
 
     /** @test */
+    public function it_will_change_the_page_size_parameter_to_all_available_when_minus_one_passed()
+    {
+        $response = $this->get('/?page[size]=-1');
+
+        $response->assertJsonFragment(['per_page' => 40]);
+    }
+
+    /** @test */
     public function it_will_discover_the_page_number_parameter()
     {
         $response = $this->get('/?page[number]=2');

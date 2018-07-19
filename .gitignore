@@ -2,3 +2,5 @@ build
 composer.lock
 docs
 vendor
+*.sublime-project
+*.sublime-workspace

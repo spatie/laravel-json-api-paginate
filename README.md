@@ -7,7 +7,10 @@
 [![StyleCI](https://styleci.io/repos/94352951/shield?branch=master)](https://styleci.io/repos/94352951)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-json-api-paginate.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-json-api-paginate)
 
-In a vanilla Laravel application [the query builder paginators will listen to `page` request parameter](https://laravel.com/docs/5.4/pagination#paginating-query-builder-results). This works great, but it does not comply with [the json:api spec](http://jsonapi.org/). That spec [expects](http://jsonapi.org/examples/#pagination) the query builder paginator to listen to the `page[number]` and `page[size]` request parameters. 
+In a vanilla Laravel application [the query builder paginators will listen to `page` request parameter](https://laravel.com/docs/5.4/pagination#paginating-query-builder-results). This works great, but it does not comply with [the json:api spec](http://jsonapi.org/). That spec [expects](http://jsonapi.org/examples/#pagination) the query builder paginator to listen to the `page[number]` and `page[size]` request parameters.
+
+Setting `page[size]=0` will use the model's perPage() value (default 15).
+Setting `page[size]=-1` will make the page size equal to the total number of records, returning all results.
 
 This package adds a `jsonPaginate` method to the Eloquent query builder that listens to those parameters and adds [the pagination links the spec requires](http://jsonapi.org/format/#fetching-pagination).
 
@@ -44,14 +47,15 @@ return [
     /*
      * The maximum number of results that will be returned
      * when using the JSON API paginator.
+     * If set to 0, then no maxiumum will be applied
      */
-    'max_results' => 30,
+    'max_results' => 0,
 
     /*
      * The default number of results that will be returned
      * when using the JSON API paginator.
      */
-    'default_size' => 30,
+    'default_size' => 50,
 
     /*
      * The key of the page[x] query string parameter for page number.
@@ -134,7 +138,7 @@ The base code of this page was published on [this Laracasts forum thread](https:
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
-Does your business depend on our contributions? Reach out and support us on [Patreon](https://www.patreon.com/spatie). 
+Does your business depend on our contributions? Reach out and support us on [Patreon](https://www.patreon.com/spatie).
 All pledges will be dedicated to allocating workforce on maintenance and new awesome stuff.
 
 ## License
