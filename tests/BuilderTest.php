@@ -39,6 +39,14 @@ class BuilderTest extends TestCase
     }
 
     /** @test */
+    public function it_will_return_the_configured_default_when_maximum_is_removed()
+    {
+        $paginator = TestModel::jsonPaginate(0);
+
+        $this->assertCount(30, $paginator);
+    }
+
+    /** @test */
     public function it_can_set_a_custom_base_url_in_the_config_file()
     {
         config()->set('json-api-paginate.base_url', 'https://example.com');
