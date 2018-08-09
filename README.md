@@ -2,7 +2,6 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-json-api-paginate.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-json-api-paginate)
 [![Build Status](https://img.shields.io/travis/spatie/laravel-json-api-paginate/master.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-json-api-paginate)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/95aac4a0-55bc-47ad-bc87-b7e35572e330.svg?style=flat-square)](https://insight.sensiolabs.com/projects/95aac4a0-55bc-47ad-bc87-b7e35572e330)
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-json-api-paginate.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-json-api-paginate)
 [![StyleCI](https://styleci.io/repos/94352951/shield?branch=master)](https://styleci.io/repos/94352951)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-json-api-paginate.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-json-api-paginate)
