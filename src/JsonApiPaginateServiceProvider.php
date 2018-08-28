@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class JsonApiPaginateServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap the application services.
-     */
     public function boot()
     {
         if ($this->app->runningInConsole()) {
@@ -21,9 +18,6 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
         $this->registerMacro();
     }
 
-    /**
-     * Register the service provider.
-     */
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/json-api-paginate.php', 'json-api-paginate');
@@ -39,11 +33,10 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
 
             $size = (int) request()->input('page.'.$sizeParameter, $defaultSize);
 
-            if ($size > $maxResults) {
-                $size = $maxResults;
-            }
+            $size = $size > $maxResults ? $maxResults : $size;
 
-            $paginator = $this->paginate($size, ['*'], 'page.'.$numberParameter)
+            $paginator = $this
+                ->paginate($size, ['*'], 'page.'.$numberParameter)
                 ->setPageName('page['.$numberParameter.']')
                 ->appends(array_except(request()->input(), 'page.'.$numberParameter));
 

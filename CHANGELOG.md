@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.4.1 - 2018-8-28
+
+- add support for Laravel 5.7
+
 ## 1.4.0 - 2018-06-15
 
 - add `base_url` config option
