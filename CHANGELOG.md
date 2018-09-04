@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
-## 1.4.1 - 2018-8-28
+## 1.4.1 - 2018-09-04
 
 - add support for Laravel 5.7
 
