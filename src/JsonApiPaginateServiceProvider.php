@@ -2,6 +2,7 @@
 
 namespace Spatie\JsonApiPaginate;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -38,7 +39,7 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
             $paginator = $this
                 ->paginate($size, ['*'], 'page.'.$numberParameter)
                 ->setPageName('page['.$numberParameter.']')
-                ->appends(array_except(request()->input(), 'page.'.$numberParameter));
+                ->appends(Arr::except(request()->input(), 'page.'.$numberParameter));
 
             if (! is_null(config('json-api-paginate.base_url'))) {
                 $paginator->setPath(config('json-api-paginate.base_url'));
