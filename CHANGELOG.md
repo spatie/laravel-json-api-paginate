@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.5.0 - 2019-02-27
+
+- drop support for Laravel 5.7 and below
+- drop support for PHP 7.1 and below
+
 ## 1.4.3 - 2019-02-27
 
 - add support for Laravel 5.8
