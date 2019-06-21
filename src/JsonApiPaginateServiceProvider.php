@@ -33,7 +33,7 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
             $sizeParameter = config('json-api-paginate.size_parameter');
             $paginationParameter = config('json-api-paginate.pagination_parameter');
 
-            $size = (int)request()->input($paginationParameter.'.'.$sizeParameter, $defaultSize);
+            $size = (int) request()->input($paginationParameter.'.'.$sizeParameter, $defaultSize);
 
             $size = $size > $maxResults ? $maxResults : $size;
 
