@@ -33,4 +33,9 @@ return [
      * Here you can override the base url to be used in the link items.
      */
     'base_url' => null,
+
+    /**
+     * The name of the query parameter used for pagination
+     */
+    'pagination_parameter' => 'page',
 ];
