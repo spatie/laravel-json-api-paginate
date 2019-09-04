@@ -31,15 +31,16 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
             $defaultSize = $defaultSize ?? config('json-api-paginate.default_size');
             $numberParameter = config('json-api-paginate.number_parameter');
             $sizeParameter = config('json-api-paginate.size_parameter');
+            $paginationParameter = config('json-api-paginate.pagination_parameter');
 
-            $size = (int) request()->input('page.'.$sizeParameter, $defaultSize);
+            $size = (int) request()->input($paginationParameter.'.'.$sizeParameter, $defaultSize);
 
             $size = $size > $maxResults ? $maxResults : $size;
 
             $paginator = $this
-                ->paginate($size, ['*'], 'page.'.$numberParameter)
-                ->setPageName('page['.$numberParameter.']')
-                ->appends(Arr::except(request()->input(), 'page.'.$numberParameter));
+                ->paginate($size, ['*'], $paginationParameter.'.'.$numberParameter)
+                ->setPageName($paginationParameter.'['.$numberParameter.']')
+                ->appends(Arr::except(request()->input(), $paginationParameter.'.'.$numberParameter));
 
             if (! is_null(config('json-api-paginate.base_url'))) {
                 $paginator->setPath(config('json-api-paginate.base_url'));
