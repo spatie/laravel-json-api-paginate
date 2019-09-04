@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.6.0 - 2019-09-04
+
+- add support for Laravel 6.0
+- added configurable pagination query parameter (#35)
+
 ## 1.5.0 - 2019-02-27
 
 - drop support for Laravel 5.7 and below
