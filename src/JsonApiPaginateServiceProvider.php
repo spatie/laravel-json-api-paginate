@@ -2,9 +2,9 @@
 
 namespace Spatie\JsonApiPaginate;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Builder;
 
 class JsonApiPaginateServiceProvider extends ServiceProvider
 {

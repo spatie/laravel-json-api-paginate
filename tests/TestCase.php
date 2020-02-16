@@ -2,11 +2,11 @@
 
 namespace Spatie\JsonApiPaginate\Test;
 
-use Route;
 use Carbon\Carbon;
-use Illuminate\Foundation\Application;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Route;
 
 abstract class TestCase extends Orchestra
 {
