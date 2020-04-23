@@ -6,7 +6,7 @@
 [![StyleCI](https://styleci.io/repos/94352951/shield?branch=master)](https://styleci.io/repos/94352951)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-json-api-paginate.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-json-api-paginate)
 
-In a vanilla Laravel application [the query builder paginators will listen to `page` request parameter](https://laravel.com/docs/5.4/pagination#paginating-query-builder-results). This works great, but it does not comply with [the json:api spec](http://jsonapi.org/). That spec [expects](http://jsonapi.org/examples/#pagination) the query builder paginator to listen to the `page[number]` and `page[size]` request parameters. 
+In a vanilla Laravel application [the query builder paginators will listen to `page` request parameter](https://laravel.com/docs/master/pagination#paginating-query-builder-results). This works great, but it does not comply with [the json:api spec](http://jsonapi.org/). That spec [expects](http://jsonapi.org/examples/#pagination) the query builder paginator to listen to the `page[number]` and `page[size]` request parameters. 
 
 This package adds a `jsonPaginate` method to the Eloquent query builder that listens to those parameters and adds [the pagination links the spec requires](http://jsonapi.org/format/#fetching-pagination).
 
