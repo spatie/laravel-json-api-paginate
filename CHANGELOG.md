@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.8.0 - 2020-08-09
+
+- add support for Laravel 8.0
+
 ## 1.7.0 - 2020-03-02
 
 - add support for Laravel 7.0
