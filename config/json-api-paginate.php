@@ -31,8 +31,7 @@ return [
 
     /*
      * If you only need to display Next and Previous links, you may use
-     * simple pagination to perform a more efficient query. Useful
-     * for large datasets.
+     * simple pagination to perform a more efficient query.
      */
     'use_simple_pagination' => false,
 
