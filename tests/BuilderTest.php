@@ -47,4 +47,14 @@ class BuilderTest extends TestCase
 
         $this->assertEquals('https://example.com?page%5Bnumber%5D=2', $paginator->nextPageUrl());
     }
+
+    /** @test */
+    public function it_can_use_simple_pagination()
+    {
+        config()->set('json-api-paginate.use_simple_pagination', true);
+
+        $paginator = TestModel::jsonPaginate();
+
+        $this->assertFalse(method_exists($paginator, 'total'));
+    }
 }
