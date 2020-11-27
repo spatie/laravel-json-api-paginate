@@ -5,6 +5,7 @@ All notable changes to `laravel-json-api-paginate` will be documented in this fi
 ## 1.10.0 - 2020-11-27
 
 - Add PHP 8 support
+- Drop support for Laravel 5.8
 
 ## 1.9.0 - 2020-09-30
 
