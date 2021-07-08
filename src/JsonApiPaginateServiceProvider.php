@@ -3,7 +3,8 @@
 namespace Spatie\JsonApiPaginate;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Arr;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\ServiceProvider;
 
 class JsonApiPaginateServiceProvider extends ServiceProvider
@@ -27,27 +28,15 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
     protected function registerMacro()
     {
         Builder::macro(config('json-api-paginate.method_name'), function (int $maxResults = null, int $defaultSize = null) {
-            $maxResults = $maxResults ?? config('json-api-paginate.max_results');
-            $defaultSize = $defaultSize ?? config('json-api-paginate.default_size');
-            $numberParameter = config('json-api-paginate.number_parameter');
-            $sizeParameter = config('json-api-paginate.size_parameter');
-            $paginationParameter = config('json-api-paginate.pagination_parameter');
-            $paginationMethod = config('json-api-paginate.use_simple_pagination') ? 'simplePaginate' : 'paginate';
+            return resolve(ForwardPagination::class)->execute($this, $maxResults, $defaultSize);
+        });
 
-            $size = (int) request()->input($paginationParameter.'.'.$sizeParameter, $defaultSize);
+        BelongsToMany::macro(config('json-api-paginate.method_name'), function (int $maxResults = null, int $defaultSize = null) {
+            return resolve(ForwardPagination::class)->execute($this, $maxResults, $defaultSize);
+        });
 
-            $size = $size > $maxResults ? $maxResults : $size;
-
-            $paginator = $this
-                ->{$paginationMethod}($size, ['*'], $paginationParameter.'.'.$numberParameter)
-                ->setPageName($paginationParameter.'['.$numberParameter.']')
-                ->appends(Arr::except(request()->input(), $paginationParameter.'.'.$numberParameter));
-
-            if (! is_null(config('json-api-paginate.base_url'))) {
-                $paginator->setPath(config('json-api-paginate.base_url'));
-            }
-
-            return $paginator;
+        HasManyThrough::macro(config('json-api-paginate.method_name'), function (int $maxResults = null, int $defaultSize = null) {
+            return resolve(ForwardPagination::class)->execute($this, $maxResults, $defaultSize);
         });
     }
 }
