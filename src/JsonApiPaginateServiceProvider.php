@@ -2,7 +2,8 @@
 
 namespace Spatie\JsonApiPaginate;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Query\Builder as BaseBuilder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,7 +27,7 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
 
     protected function registerMacro()
     {
-        Builder::macro(config('json-api-paginate.method_name'), function (int $maxResults = null, int $defaultSize = null) {
+        $macro = function (int $maxResults = null, int $defaultSize = null) {
             $maxResults = $maxResults ?? config('json-api-paginate.max_results');
             $defaultSize = $defaultSize ?? config('json-api-paginate.default_size');
             $numberParameter = config('json-api-paginate.number_parameter');
@@ -48,6 +49,9 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
             }
 
             return $paginator;
-        });
+        };
+
+        EloquentBuilder::macro(config('json-api-paginate.method_name'), $macro);
+        BaseBuilder::macro(config('json-api-paginate.method_name'), $macro);
     }
 }
