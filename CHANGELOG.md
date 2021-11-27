@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.11.0 - 2021-11-27
+
+## What's Changed
+
+- Pagination is not part of the JSON:API specification by @bbrala in https://github.com/spatie/laravel-json-api-paginate/pull/56
+- Adds the JsonPaginate macro to the base Query Builder by @troy-whitespark in https://github.com/spatie/laravel-json-api-paginate/pull/58
+
+## New Contributors
+
+- @bbrala made their first contribution in https://github.com/spatie/laravel-json-api-paginate/pull/56
+- @troy-whitespark made their first contribution in https://github.com/spatie/laravel-json-api-paginate/pull/58
+
+**Full Changelog**: https://github.com/spatie/laravel-json-api-paginate/compare/1.10.0...1.11.0
+
 ## 1.10.0 - 2020-11-27
 
 - Add PHP 8 support
