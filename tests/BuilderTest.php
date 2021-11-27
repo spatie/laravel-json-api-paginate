@@ -2,6 +2,9 @@
 
 namespace Spatie\JsonApiPaginate\Test;
 
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
+
 class BuilderTest extends TestCase
 {
     /** @test */
@@ -56,5 +59,12 @@ class BuilderTest extends TestCase
         $paginator = TestModel::jsonPaginate();
 
         $this->assertFalse(method_exists($paginator, 'total'));
+    }
+
+    /** @test */
+    public function it_can_use_base_query_builder()
+    {
+        $paginator = DB::table('test_models')->jsonPaginate();
+        $this->assertEquals('http://localhost?page%5Bnumber%5D=2', $paginator->nextPageUrl());
     }
 }
