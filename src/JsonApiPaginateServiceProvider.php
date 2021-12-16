@@ -3,6 +3,8 @@
 namespace Spatie\JsonApiPaginate;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Query\Builder as BaseBuilder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
@@ -53,5 +55,7 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
 
         EloquentBuilder::macro(config('json-api-paginate.method_name'), $macro);
         BaseBuilder::macro(config('json-api-paginate.method_name'), $macro);
+        BelongsToMany::macro(config('json-api-paginate.method_name'), $macro);
+        HasManyThrough::macro(config('json-api-paginate.method_name'), $macro);
     }
 }
