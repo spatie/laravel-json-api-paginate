@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.11.1 - 2022-01-11
+
+- allow Laravel 9
+
 ## 1.11.1 - 2021-01-11
 
 - allow Laravel 9
