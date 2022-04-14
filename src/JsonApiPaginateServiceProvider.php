@@ -31,18 +31,24 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
             $maxResults = $maxResults ?? config('json-api-paginate.max_results');
             $defaultSize = $defaultSize ?? config('json-api-paginate.default_size');
             $numberParameter = config('json-api-paginate.number_parameter');
+            $cursorParameter = config('json-api-paginate.cursor_parameter');
             $sizeParameter = config('json-api-paginate.size_parameter');
             $paginationParameter = config('json-api-paginate.pagination_parameter');
-            $paginationMethod = config('json-api-paginate.use_simple_pagination') ? 'simplePaginate' : 'paginate';
+            $paginationMethod = config('json-api-paginate.use_cursor_pagination')
+                ? 'cursorPaginate'
+                : (config('json-api-paginate.use_simple_pagination') ? 'simplePaginate' : 'paginate');
 
             $size = (int) request()->input($paginationParameter.'.'.$sizeParameter, $defaultSize);
+            $cursor = (string) request()->input($paginationParameter.'.'.$cursorParameter);
 
             $size = $size > $maxResults ? $maxResults : $size;
 
-            $paginator = $this
-                ->{$paginationMethod}($size, ['*'], $paginationParameter.'.'.$numberParameter)
-                ->setPageName($paginationParameter.'['.$numberParameter.']')
-                ->appends(Arr::except(request()->input(), $paginationParameter.'.'.$numberParameter));
+            $paginator = $paginationMethod === 'cursorPaginate'
+                ? $this->{$paginationMethod}($size, ['*'], $paginationParameter.'['.$cursorParameter.']', $cursor)
+                : $this
+                    ->{$paginationMethod}($size, ['*'], $paginationParameter.'.'.$numberParameter)
+                    ->setPageName($paginationParameter.'['.$numberParameter.']')
+                    ->appends(Arr::except(request()->input(), $paginationParameter.'.'.$numberParameter));
 
             if (! is_null(config('json-api-paginate.base_url'))) {
                 $paginator->setPath(config('json-api-paginate.base_url'));
