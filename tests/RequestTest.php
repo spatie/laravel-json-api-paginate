@@ -47,4 +47,34 @@ class RequestTest extends TestCase
 
         $response->assertJsonFragment(['current_page' => 2]);
     }
+
+    /** @test */
+    public function it_will_use_default_size_when_page_size_is_zero()
+    {
+        $default_size = config('json-api-paginate.default_size');
+
+        $response = $this->get('/?page[size]=0');
+
+        $response->assertJsonFragment(['per_page' => $default_size]);
+    }
+
+    /** @test */
+    public function it_will_use_default_size_when_page_size_is_negative()
+    {
+        $default_size = config('json-api-paginate.default_size');
+
+        $response = $this->get('/?page[size]=-1');
+
+        $response->assertJsonFragment(['per_page' => $default_size]);
+    }
+
+    /** @test */
+    public function it_will_use_default_size_when_page_size_is_illegal()
+    {
+        $default_size = config('json-api-paginate.default_size');
+
+        $response = $this->get('/?page[size]=Rpfwj5N1b7');
+
+        $response->assertJsonFragment(['per_page' => $default_size]);
+    }
 }
