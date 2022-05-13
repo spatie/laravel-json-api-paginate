@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.11.2 - 2022-05-13
+
+## What's Changed
+
+- change wording to say that it does not follow the json spec by @brettnielsen in https://github.com/spatie/laravel-json-api-paginate/pull/60
+- Make negetive page[size] exception safe by @ifduyue in https://github.com/spatie/laravel-json-api-paginate/pull/62
+
+## New Contributors
+
+- @brettnielsen made their first contribution in https://github.com/spatie/laravel-json-api-paginate/pull/60
+- @ifduyue made their first contribution in https://github.com/spatie/laravel-json-api-paginate/pull/62
+
+**Full Changelog**: https://github.com/spatie/laravel-json-api-paginate/compare/1.11.1...1.11.2
+
 ## 1.11.1 - 2022-01-11
 
 - allow Laravel 9
