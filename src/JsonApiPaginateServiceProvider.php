@@ -41,7 +41,13 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
             $size = (int) request()->input($paginationParameter.'.'.$sizeParameter, $defaultSize);
             $cursor = (string) request()->input($paginationParameter.'.'.$cursorParameter);
 
-            $size = $size > $maxResults ? $maxResults : $size;
+            if ($size <= 0) {
+                $size = $defaultSize;
+            }
+
+            if ($size > $maxResults) {
+                $size = $maxResults;
+            }
 
             $paginator = $paginationMethod === 'cursorPaginate'
                 ? $this->{$paginationMethod}($size, ['*'], $paginationParameter.'['.$cursorParameter.']', $cursor)
