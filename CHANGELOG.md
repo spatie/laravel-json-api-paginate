@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.12.0 - 2022-05-16
+
+## What's Changed
+
+- Add cursor pagination by @AyoobMH in https://github.com/spatie/laravel-json-api-paginate/pull/61
+
+## New Contributors
+
+- @AyoobMH made their first contribution in https://github.com/spatie/laravel-json-api-paginate/pull/61
+
+**Full Changelog**: https://github.com/spatie/laravel-json-api-paginate/compare/1.11.2...1.12.0
+
 ## 1.11.2 - 2022-05-13
 
 ## What's Changed
