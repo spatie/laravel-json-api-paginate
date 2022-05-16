@@ -70,5 +70,11 @@ abstract class TestCase extends Orchestra
         Route::any('/', function () {
             return TestModel::jsonPaginate();
         });
+
+        Route::any('cursor/', function () {
+            config()->set('json-api-paginate.use_cursor_pagination', true);
+
+            return TestModel::orderBy('id')->jsonPaginate();
+        });
     }
 }

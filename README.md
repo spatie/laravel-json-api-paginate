@@ -7,7 +7,7 @@
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/spatie/laravel-json-api-paginate/run-tests?label=tests)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-json-api-paginate.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-json-api-paginate)
 
-In a vanilla Laravel application [the query builder paginators will listen to `page` request parameter](https://laravel.com/docs/master/pagination#paginating-query-builder-results). This works great, but it does not follow the example solution of [the json:api spec](http://jsonapi.org/). That example [expects](http://jsonapi.org/examples/#pagination) the query builder paginator to listen to the `page[number]` and `page[size]` request parameters. 
+In a vanilla Laravel application [the query builder paginators will listen to `page` request parameter](https://laravel.com/docs/master/pagination#paginating-query-builder-results). This works great, but it does not follow the example solution of [the json:api spec](http://jsonapi.org/). That example [expects](http://jsonapi.org/examples/#pagination) the query builder paginator to listen to the `page[number]` and `page[size]` request parameters.
 
 This package adds a `jsonPaginate` method to the Eloquent query builder that listens to those parameters and adds [the pagination links the spec requires](http://jsonapi.org/format/#fetching-pagination).
 
@@ -72,6 +72,11 @@ return [
     'size_parameter' => 'size',
 
     /*
+     * The key of the page[x] query string parameter for cursor.
+     */
+    'cursor_parameter' => 'cursor',
+
+    /*
      * The name of the macro that is added to the Eloquent query builder.
      */
     'method_name' => 'jsonPaginate',
@@ -83,6 +88,12 @@ return [
     'use_simple_pagination' => false,
 
     /*
+     * If you want to cursor pagination, set this to true.
+     * This would override use_simple_pagination.
+     */
+    'use_cursor_pagination' => false,
+
+    /*
      * Here you can override the base url to be used in the link items.
      */
     'base_url' => null,
@@ -92,6 +103,7 @@ return [
      */
     'pagination_parameter' => 'page',
 ];
+
 ```
 
 ## Usage
@@ -114,6 +126,40 @@ By default the maximum page size is set to 30. You can change this number in the
 $maxResults = 60;
 
 YourModel::jsonPaginate($maxResults);
+```
+
+### Cursor pagination
+
+This package also supports cursor pagination, which can be briefly defined by the Laravel Framework as follows:
+
+> While paginate and simplePaginate create queries using the SQL "offset" clause, cursor pagination works by constructing "where" clauses that compare the values of the ordered columns contained in the query, providing the most efficient database performance available amongst all of Laravel's pagination methods.
+
+You can find more about cursor pagination in the [Laravel Documentation](https://laravel.com/docs/9.x/pagination#cursor-pagination).
+
+If you want to use cursor pagination, you can set the `use_cursor_pagination` to true in the `config` file.
+
+It's also possible to modify the pagination parameter in the `config` file, by modifying the `cursor_parameter` value.
+
+```php
+<?php
+
+return [
+    // ..... other config options .....
+
+    /*
+     * The key of the page[x] query string parameter for cursor.
+     */
+    'cursor_parameter' => 'cursor',
+
+    /*
+     * If you want to cursor pagination, set this to true.
+     * This would override use_simple_pagination.
+     */
+    'use_cursor_pagination' => true,
+
+    // ..... other config options .....
+];
+
 ```
 
 ## Changelog

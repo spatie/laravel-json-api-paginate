@@ -25,6 +25,11 @@ return [
     'size_parameter' => 'size',
 
     /*
+     * The key of the page[x] query string parameter for cursor.
+     */
+    'cursor_parameter' => 'cursor',
+
+    /*
      * The name of the macro that is added to the Eloquent query builder.
      */
     'method_name' => 'jsonPaginate',
@@ -34,6 +39,12 @@ return [
      * simple pagination to perform a more efficient query.
      */
     'use_simple_pagination' => false,
+
+    /*
+     * If you want to use cursor pagination, set this to true.
+     * This would override use_simple_pagination.
+     */
+    'use_cursor_pagination' => false,
 
     /*
      * Here you can override the base url to be used in the link items.
