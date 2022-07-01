@@ -71,7 +71,6 @@ class RequestTest extends TestCase
     {
         config(['json-api-paginate.cursor_parameter' => 'modified_cursor']);
 
-
         $response = $this->get('cursor/?page[size]=10&page[modified_cursor]=eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0');
         $response->assertJsonFragment(['next_cursor' => 'eyJpZCI6MjAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0']);
     }
@@ -84,6 +83,29 @@ class RequestTest extends TestCase
         $response->assertJsonFragment(['next_cursor' => 'eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0']);
     }
 
+    /** @test */
+    public function it_will_append_other_parameters_to_urls()
+    {
+        $response = $this->get('/?page[size]=10&page[number]=3');
+
+        $response->assertJsonFragment([
+            'next_page_url' => url('/?page%5Bsize%5D=10&page%5Bnumber%5D=4'),
+            'prev_page_url' => url('/?page%5Bsize%5D=10&page%5Bnumber%5D=2'),
+        ]);
+    }
+
+    /** @test */
+    public function it_will_append_other_parameters_to_urls_for_cursor()
+    {
+        $response = $this->get('cursor/?page[size]=10&page[cursor]=eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0');
+
+        $response->assertJsonFragment([
+            'next_page_url' => url('cursor/?page%5Bsize%5D=10&page%5Bcursor%5D=eyJpZCI6MjAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0'),
+            'prev_page_url' => url('cursor/?page%5Bsize%5D=10&page%5Bcursor%5D=eyJpZCI6MTEsIl9wb2ludHNUb05leHRJdGVtcyI6ZmFsc2V9'),
+        ]);
+    }
+
+    /** @test */
     public function it_will_use_default_size_when_page_size_is_zero()
     {
         $default_size = config('json-api-paginate.default_size');
