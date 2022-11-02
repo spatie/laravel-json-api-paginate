@@ -1,115 +1,65 @@
 <?php
 
-namespace Spatie\JsonApiPaginate\Test;
+it('will discover the page size parameter')
+    ->get('/?page[size]=2')
+    ->assertJsonFragment(['per_page' => 2]);
 
-class RequestTest extends TestCase
-{
-    /** @test */
-    public function it_will_discover_the_page_size_parameter()
-    {
-        $response = $this->get('/?page[size]=2');
+it('will discover the page number parameter')
+    ->get('/?page[number]=2')
+    ->assertJsonFragment(['current_page' => 2]);
 
-        $response->assertJsonFragment(['per_page' => 2]);
-    }
+it('will discover the cursor parameter')
+    ->get('cursor/?page[cursor]=eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0')
+    ->assertJsonFragment(['prev_cursor' => 'eyJpZCI6MTEsIl9wb2ludHNUb05leHRJdGVtcyI6ZmFsc2V9']);
 
-    /** @test */
-    public function it_will_discover_the_page_number_parameter()
-    {
-        $response = $this->get('/?page[number]=2');
+it('will use the default page size')
+    ->get('/')
+    ->assertJsonFragment(['per_page' => 30]);
 
-        $response->assertJsonFragment(['current_page' => 2]);
-    }
+it('will use the configured page size parameter')
+    ->tap(fn () => config(['json-api-paginate.size_parameter' => 'modified_size']))
+    ->get('/?page[modified_size]=2')
+    ->assertJsonFragment(['per_page' => 2]);
 
-    /** @test */
-    public function it_will_discover_the_cursor_parameter()
-    {
-        $response = $this->get('cursor/?page[cursor]=eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0');
+it('will use the configured page size parameter for cursor')
+    ->tap(fn () => config(['json-api-paginate.size_parameter' => 'modified_size']))
+    ->get('cursor/?page[modified_size]=2')
+    ->assertJsonFragment(['per_page' => 2]);
 
-        $response->assertJsonFragment(['prev_cursor' => 'eyJpZCI6MTEsIl9wb2ludHNUb05leHRJdGVtcyI6ZmFsc2V9']);
-    }
+it('will use the configured page number parameter')
+    ->tap(fn () => config(['json-api-paginate.number_parameter' => 'modified_number']))
+    ->get('/?page[modified_number]=2')
+    ->assertJsonFragment(['current_page' => 2]);
 
-    /** @test */
-    public function it_will_use_the_default_page_size()
-    {
-        $response = $this->get('/');
+it('will use the configured cursor parameter')
+    ->tap(fn () => config(['json-api-paginate.cursor_parameter' => 'modified_cursor']))
+    ->get('cursor/?page[size]=10&page[modified_cursor]=eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0')
+    ->assertJsonFragment(['next_cursor' => 'eyJpZCI6MjAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0']);
 
-        $response->assertJsonFragment(['per_page' => 30]);
-    }
+it('will use the configured size parameter for cursor')
+    ->get('cursor/?page[size]=10')
+    ->assertJsonFragment(['next_cursor' => 'eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0']);
 
-    /** @test */
-    public function it_will_use_the_configured_page_size_parameter()
-    {
-        config(['json-api-paginate.size_parameter' => 'modified_size']);
+it('will use default size when page size is 0', function () {
+    $default_size = config('json-api-paginate.default_size');
 
-        $response = $this->get('/?page[modified_size]=2');
+    $response = $this->get('/?page[size]=0');
 
-        $response->assertJsonFragment(['per_page' => 2]);
-    }
+    $response->assertJsonFragment(['per_page' => $default_size]);
+});
 
-    /** @test */
-    public function it_will_use_the_configured_page_size_parameter_for_cursor()
-    {
-        config(['json-api-paginate.size_parameter' => 'modified_size']);
+it('will use default size when page size is negative', function () {
+    $default_size = config('json-api-paginate.default_size');
 
-        $response = $this->get('cursor/?page[modified_size]=2');
+    $response = $this->get('/?page[size]=-1');
 
-        $response->assertJsonFragment(['per_page' => 2]);
-    }
+    $response->assertJsonFragment(['per_page' => $default_size]);
+});
 
-    /** @test */
-    public function it_will_use_the_configured_page_number_parameter()
-    {
-        config(['json-api-paginate.number_parameter' => 'modified_number']);
+it('will use default size when page size is illegal', function () {
+    $default_size = config('json-api-paginate.default_size');
 
-        $response = $this->get('/?page[modified_number]=2');
+    $response = $this->get('/?page[size]=Rpfwj5N1b7');
 
-        $response->assertJsonFragment(['current_page' => 2]);
-    }
-
-    /** @test */
-    public function it_will_use_the_configured_cursor_parameter()
-    {
-        config(['json-api-paginate.cursor_parameter' => 'modified_cursor']);
-
-
-        $response = $this->get('cursor/?page[size]=10&page[modified_cursor]=eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0');
-        $response->assertJsonFragment(['next_cursor' => 'eyJpZCI6MjAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0']);
-    }
-
-    /** @test */
-    public function it_will_use_the_configured_size_parameter_for_cursor()
-    {
-        $response = $this->get('cursor/?page[size]=10');
-
-        $response->assertJsonFragment(['next_cursor' => 'eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0']);
-    }
-
-    public function it_will_use_default_size_when_page_size_is_zero()
-    {
-        $default_size = config('json-api-paginate.default_size');
-
-        $response = $this->get('/?page[size]=0');
-
-        $response->assertJsonFragment(['per_page' => $default_size]);
-    }
-
-    /** @test */
-    public function it_will_use_default_size_when_page_size_is_negative()
-    {
-        $default_size = config('json-api-paginate.default_size');
-
-        $response = $this->get('/?page[size]=-1');
-
-        $response->assertJsonFragment(['per_page' => $default_size]);
-    }
-
-    /** @test */
-    public function it_will_use_default_size_when_page_size_is_illegal()
-    {
-        $default_size = config('json-api-paginate.default_size');
-
-        $response = $this->get('/?page[size]=Rpfwj5N1b7');
-
-        $response->assertJsonFragment(['per_page' => $default_size]);
-    }
-}
+    $response->assertJsonFragment(['per_page' => $default_size]);
+});

@@ -53,7 +53,6 @@ it('can use cursor pagination')
         fn () => method_exists(TestModel::jsonPaginate(), 'total')
     )->toBeFalse();
 
-
 it('can use base query builder')
     ->expect(fn () => DB::table('test_models')->jsonPaginate()->nextPageUrl())
     ->toEqual('http://localhost?page%5Bnumber%5D=2');
