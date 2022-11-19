@@ -51,6 +51,7 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
 
             $paginator = $paginationMethod === 'cursorPaginate'
                 ? $this->{$paginationMethod}($size, ['*'], $paginationParameter.'['.$cursorParameter.']', $cursor)
+                    ->appends(Arr::except(request()->input(), $paginationParameter.'.'.$cursorParameter))
                 : $this
                     ->{$paginationMethod}($size, ['*'], $paginationParameter.'.'.$numberParameter)
                     ->setPageName($paginationParameter.'['.$numberParameter.']')
