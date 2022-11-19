@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.12.1 - 2022-11-19
+
+### What's Changed
+
+- Refactor tests to Pest by @alexmanase in https://github.com/spatie/laravel-json-api-paginate/pull/68
+- Append query parameters to URLs when using cursor pagination by @NizarBerjawi in https://github.com/spatie/laravel-json-api-paginate/pull/69
+
+### New Contributors
+
+- @alexmanase made their first contribution in https://github.com/spatie/laravel-json-api-paginate/pull/68
+- @NizarBerjawi made their first contribution in https://github.com/spatie/laravel-json-api-paginate/pull/69
+
+**Full Changelog**: https://github.com/spatie/laravel-json-api-paginate/compare/1.12.0...1.12.1
+
 ## 1.12.0 - 2022-05-16
 
 ## What's Changed
