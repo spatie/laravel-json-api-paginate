@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.12.2 - 2023-01-25
+
+### What's Changed
+
+- Add PHP 8.2 Support by @patinthehat in https://github.com/spatie/laravel-json-api-paginate/pull/71
+- Laravel 10.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-json-api-paginate/pull/72
+
+### New Contributors
+
+- @patinthehat made their first contribution in https://github.com/spatie/laravel-json-api-paginate/pull/71
+- @laravel-shift made their first contribution in https://github.com/spatie/laravel-json-api-paginate/pull/72
+
+**Full Changelog**: https://github.com/spatie/laravel-json-api-paginate/compare/1.12.1...1.12.2
+
 ## 1.12.1 - 2022-11-19
 
 ### What's Changed
