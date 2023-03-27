@@ -120,6 +120,14 @@ Of course you may still use all the builder methods you know and love:
 YourModel::where('my_field', 'myValue')->jsonPaginate();
 ```
 
+You can also paginate results for relations:
+
+```php
+$model = YourModel::find(1);
+
+$model->relation()->jsonPaginate();
+```
+
 By default the maximum page size is set to 30. You can change this number in the `config` file or just pass the value to  `jsonPaginate`.
 
 ```php
