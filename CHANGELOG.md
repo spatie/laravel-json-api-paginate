@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.13.0 - 2023-03-27
+
+### What's Changed
+
+- Add macros for BelongsToMany and HasManyThrough by @philipgunther in https://github.com/spatie/laravel-json-api-paginate/pull/65
+
+### New Contributors
+
+- @philipgunther made their first contribution in https://github.com/spatie/laravel-json-api-paginate/pull/65
+
+**Full Changelog**: https://github.com/spatie/laravel-json-api-paginate/compare/1.12.2...1.13.0
+
 ## 1.12.2 - 2023-01-25
 
 ### What's Changed
