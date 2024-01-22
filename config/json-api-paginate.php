@@ -55,4 +55,9 @@ return [
      * The name of the query parameter used for pagination
      */
     'pagination_parameter' => 'page',
+
+    /**
+     * ?per_page=N
+     */
+    'per_page_request_key' => 'per_page',
 ];

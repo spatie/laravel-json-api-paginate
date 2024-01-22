@@ -9,6 +9,11 @@ use Illuminate\Database\Query\Builder as BaseBuilder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * The application instance.
+ *
+ * @property \Illuminate\Contracts\Foundation\Application $app
+ */
 class JsonApiPaginateServiceProvider extends ServiceProvider
 {
     public function boot()
@@ -30,7 +35,10 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
     protected function registerMacro()
     {
         $macro = function (int $maxResults = null, int $defaultSize = null) {
-            $maxResults = $maxResults ?? config('json-api-paginate.max_results');
+            $perPage = (int) request()->input(config('json-api-paginate.per_page_request_key'));
+
+            $perPage = ($perPage && $perPage > 1) ? $perPage : config('json-api-paginate.max_results');
+            $maxResults = $maxResults ?? $perPage;
             $defaultSize = $defaultSize ?? config('json-api-paginate.default_size');
             $numberParameter = config('json-api-paginate.number_parameter');
             $cursorParameter = config('json-api-paginate.cursor_parameter');
