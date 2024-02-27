@@ -1,16 +1,17 @@
 name: run-tests
 
-on: [push]
+on:
+  - push
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
         php: [8.2, 8.1, 8.0, 7.4, 7.3]
-        laravel: [9.*, 8.*, 10.*]
+        laravel: ['8.*', '9.*', '10.*', '11.*']
         dependency-version: [prefer-lowest, prefer-stable]
         include:
           - laravel: 10.*
@@ -19,17 +20,27 @@ jobs:
             testbench: ^7.0
           - laravel: 8.*
             testbench: ^6.23
+          - laravel: 11.*
+            testbench: ^9.0
         exclude:
-            - laravel: 10.*
-              php: 8.0
-            - laravel: 10.*
-              php: 7.4
-            - laravel: 10.*
-              php: 7.3
-            - laravel: 9.*
-              php: 7.3
-            - laravel: 9.*
-              php: 7.4
+          - laravel: 10.*
+            php: 8.0
+          - laravel: 10.*
+            php: 7.4
+          - laravel: 10.*
+            php: 7.3
+          - laravel: 9.*
+            php: 7.3
+          - laravel: 9.*
+            php: 7.4
+          - laravel: 11.*
+            php: 8.1
+          - laravel: 11.*
+            php: 8.0
+          - laravel: 11.*
+            php: 7.4
+          - laravel: 11.*
+            php: 7.3
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
@@ -49,10 +60,10 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" "nesbot/carbon:^2.63" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
-      -   name: Setup Problem Matches
-          run: |
-              echo "::add-matcher::${{ runner.tool_cache }}/php.json"
-              echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+      - name: Setup Problem Matches
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Execute tests
         run: vendor/bin/pest
