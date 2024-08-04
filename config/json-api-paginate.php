@@ -6,7 +6,7 @@ return [
      * The maximum number of results that will be returned
      * when using the JSON API paginator.
      */
-    'max_results' => 30,
+    'max_results' => 60,
 
     /*
      * The default number of results that will be returned
@@ -45,6 +45,12 @@ return [
      * This would override use_simple_pagination.
      */
     'use_cursor_pagination' => false,
+
+    /*
+     * use simpleFastPaginate() or fastPaginate from https://github.com/hammerstonedev/fast-paginate
+     * use may installed it via `composer require hammerstone/fast-paginate`
+     */
+    'use_fast_pagination' => false,
 
     /*
      * Here you can override the base url to be used in the link items.
