@@ -6,7 +6,7 @@ return [
      * The maximum number of results that will be returned
      * when using the JSON API paginator.
      */
-    'max_results' => 60,
+    'max_results' => 30,
 
     /*
      * The default number of results that will be returned
