@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.15.0 - 2024-08-05
+
+### What's Changed
+
+* Add support for fast paginate by @lloricode in https://github.com/spatie/laravel-json-api-paginate/pull/77
+
+### New Contributors
+
+* @lloricode made their first contribution in https://github.com/spatie/laravel-json-api-paginate/pull/77
+
+**Full Changelog**: https://github.com/spatie/laravel-json-api-paginate/compare/1.14.0...1.15.0
+
 ## 1.14.0 - 2024-02-28
 
 ### What's Changed
