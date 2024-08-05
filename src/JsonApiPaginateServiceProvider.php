@@ -2,6 +2,7 @@
 
 namespace Spatie\JsonApiPaginate;
 
+use Composer\InstalledVersions;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -38,7 +39,15 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
             $paginationParameter = config('json-api-paginate.pagination_parameter');
             $paginationMethod = config('json-api-paginate.use_cursor_pagination')
                 ? 'cursorPaginate'
-                : (config('json-api-paginate.use_simple_pagination') ? 'simplePaginate' : 'paginate');
+                : (
+                    config('json-api-paginate.use_simple_pagination')
+                        ? (config('json-api-paginate.use_fast_pagination') ? 'simpleFastPaginate' : 'simplePaginate')
+                        : (config('json-api-paginate.use_fast_pagination') ? 'fastPaginate' : 'paginate')
+                );
+
+            if (config('json-api-paginate.use_simple_pagination') && !InstalledVersions::isInstalled('hammerstone/fast-paginate')) {
+                abort(500, 'You need to install hammerstone/fast-paginate to use fast pagination.');
+            }
 
             $size = (int) request()->input($paginationParameter.'.'.$sizeParameter, $defaultSize);
             $cursor = (string) request()->input($paginationParameter.'.'.$cursorParameter);
