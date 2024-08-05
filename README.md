@@ -85,10 +85,16 @@ return [
     'use_simple_pagination' => false,
 
     /*
-     * If you want to cursor pagination, set this to true.
+     * If you want to use cursor pagination, set this to true.
      * This would override use_simple_pagination.
      */
     'use_cursor_pagination' => false,
+
+    /*
+     * use simpleFastPaginate() or fastPaginate from https://github.com/hammerstonedev/fast-paginate
+     * use may installed it via `composer require hammerstone/fast-paginate`
+     */
+    'use_fast_pagination' => false,
 
     /*
      * Here you can override the base url to be used in the link items.
