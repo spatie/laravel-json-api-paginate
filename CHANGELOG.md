@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.16.0 - 2024-12-16
+
+### What's Changed
+
+* Add `$totalResults` parameter + update docs by @sebj54 in https://github.com/spatie/laravel-json-api-paginate/pull/79
+
+### New Contributors
+
+* @sebj54 made their first contribution in https://github.com/spatie/laravel-json-api-paginate/pull/79
+
+**Full Changelog**: https://github.com/spatie/laravel-json-api-paginate/compare/1.15.1...1.16.0
+
 ## 1.15.1 - 2024-08-06
 
 ### What's Changed
