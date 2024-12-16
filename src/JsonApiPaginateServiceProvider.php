@@ -30,7 +30,7 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
 
     protected function registerMacro()
     {
-        $macro = function (int $maxResults = null, int $defaultSize = null) {
+        $macro = function (?int $maxResults = null, ?int $defaultSize = null, ?int $totalResults = null) {
             $maxResults = $maxResults ?? config('json-api-paginate.max_results');
             $defaultSize = $defaultSize ?? config('json-api-paginate.default_size');
             $numberParameter = config('json-api-paginate.number_parameter');
@@ -45,7 +45,7 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
                         : (config('json-api-paginate.use_fast_pagination') ? 'fastPaginate' : 'paginate')
                 );
 
-            if (config('json-api-paginate.use_fast_pagination') && !InstalledVersions::isInstalled('hammerstone/fast-paginate')) {
+            if (config('json-api-paginate.use_fast_pagination') && ! InstalledVersions::isInstalled('hammerstone/fast-paginate')) {
                 abort(500, 'You need to install hammerstone/fast-paginate to use fast pagination.');
             }
 
@@ -64,7 +64,7 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
                 ? $this->{$paginationMethod}($size, ['*'], $paginationParameter.'['.$cursorParameter.']', $cursor)
                     ->appends(Arr::except(request()->input(), $paginationParameter.'.'.$cursorParameter))
                 : $this
-                    ->{$paginationMethod}($size, ['*'], $paginationParameter.'.'.$numberParameter)
+                    ->{$paginationMethod}($size, ['*'], $paginationParameter.'.'.$numberParameter, null, $totalResults)
                     ->setPageName($paginationParameter.'['.$numberParameter.']')
                     ->appends(Arr::except(request()->input(), $paginationParameter.'.'.$numberParameter));
 

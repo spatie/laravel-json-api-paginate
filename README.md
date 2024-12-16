@@ -131,12 +131,32 @@ $model = YourModel::find(1);
 $model->relation()->jsonPaginate();
 ```
 
+### Override default behavior
+
 By default the maximum page size is set to 30. You can change this number in the `config` file or just pass the value to  `jsonPaginate`.
 
 ```php
 $maxResults = 60;
 
 YourModel::jsonPaginate($maxResults);
+```
+
+By default the default page size is set to 30. You can change this number in the `config` file or just pass the value to  `jsonPaginate`.
+
+```php
+$defaultSize = 15;
+
+YourModel::jsonPaginate(null, $defaultSize);
+```
+
+You can also pass the total count to the `paginate` function directly. This can be useful for performance reasons or to prevent issues with `DISTINCT` keyword ([more info](https://github.com/laravel/framework/issues?q=is%3Aissue+paginate+total)).
+
+⚠️ This is effective only with basic pagination (no effect with cursor, simple or fast pagination)
+
+```php
+$total = 42;
+
+YourModel::jsonPaginate(null, null, $total);
 ```
 
 ### Cursor pagination
