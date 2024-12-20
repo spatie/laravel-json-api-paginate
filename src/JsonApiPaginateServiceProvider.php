@@ -60,13 +60,19 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
                 $size = $maxResults;
             }
 
-            $paginator = $paginationMethod === 'cursorPaginate'
-                ? $this->{$paginationMethod}($size, ['*'], $paginationParameter.'['.$cursorParameter.']', $cursor)
-                    ->appends(Arr::except(request()->input(), $paginationParameter.'.'.$cursorParameter))
-                : $this
-                    ->{$paginationMethod}($size, ['*'], $paginationParameter.'.'.$numberParameter, null, $totalResults)
-                    ->setPageName($paginationParameter.'['.$numberParameter.']')
+            if ($paginationMethod === 'cursorPaginate') {
+                $paginator = $this->{$paginationMethod}($size, ['*'], $paginationParameter.'['.$cursorParameter.']', $cursor)
+                    ->appends(Arr::except(request()->input(), $paginationParameter.'.'.$cursorParameter));
+            } else {
+                if (version_compare(app()->version(), '11.0.0') >= 0) {
+                    $paginator = $this->{$paginationMethod}($size, ['*'], $paginationParameter.'.'.$numberParameter, null, $totalResults);
+                } else {
+                    $paginator = $this->{$paginationMethod}($size, ['*'], $paginationParameter.'.'.$numberParameter);
+                }
+
+                $paginator->setPageName($paginationParameter.'['.$numberParameter.']')
                     ->appends(Arr::except(request()->input(), $paginationParameter.'.'.$numberParameter));
+            }
 
             if (! is_null(config('json-api-paginate.base_url'))) {
                 $paginator->setPath(config('json-api-paginate.base_url'));
