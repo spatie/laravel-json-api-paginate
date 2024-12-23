@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 1.16.1 - 2024-12-23
+
+### What's Changed
+
+* Fix compatibility with Laravel < 11 by @sebj54 in https://github.com/spatie/laravel-json-api-paginate/pull/82
+
+**Full Changelog**: https://github.com/spatie/laravel-json-api-paginate/compare/1.16.0...1.16.1
+
 ## 1.16.0 - 2024-12-16
 
 ### What's Changed
