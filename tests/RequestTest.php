@@ -16,25 +16,37 @@ it('will use the default page size')
     ->get('/')
     ->assertJsonFragment(['per_page' => 30]);
 
-it('will use the configured page size parameter')
-    ->tap(fn () => config(['json-api-paginate.size_parameter' => 'modified_size']))
-    ->get('/?page[modified_size]=2')
-    ->assertJsonFragment(['per_page' => 2]);
+it('will use the configured page size parameter', function () {
+    config(['json-api-paginate.size_parameter' => 'modified_size']);
 
-it('will use the configured page size parameter for cursor')
-    ->tap(fn () => config(['json-api-paginate.size_parameter' => 'modified_size']))
-    ->get('cursor/?page[modified_size]=2')
-    ->assertJsonFragment(['per_page' => 2]);
+    $response = $this->get('/?page[modified_size]=2');
 
-it('will use the configured page number parameter')
-    ->tap(fn () => config(['json-api-paginate.number_parameter' => 'modified_number']))
-    ->get('/?page[modified_number]=2')
-    ->assertJsonFragment(['current_page' => 2]);
+    $response->assertJsonFragment(['per_page' => 2]);
+});
 
-it('will use the configured cursor parameter')
-    ->tap(fn () => config(['json-api-paginate.cursor_parameter' => 'modified_cursor']))
-    ->get('cursor/?page[size]=10&page[modified_cursor]=eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0')
-    ->assertJsonFragment(['next_cursor' => 'eyJpZCI6MjAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0']);
+it('will use the configured page size parameter for cursor', function () {
+    config(['json-api-paginate.size_parameter' => 'modified_size']);
+
+    $response = $this->get('cursor/?page[modified_size]=2');
+
+    $response->assertJsonFragment(['per_page' => 2]);
+});
+
+it('will use the configured page number parameter', function () {
+    config(['json-api-paginate.number_parameter' => 'modified_number']);
+
+    $response = $this->get('/?page[modified_number]=2');
+
+    $response->assertJsonFragment(['current_page' => 2]);
+});
+
+it('will use the configured cursor parameter', function () {
+    config(['json-api-paginate.cursor_parameter' => 'modified_cursor']);
+
+    $response = $this->get('cursor/?page[size]=10&page[modified_cursor]=eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0');
+
+    $response->assertJsonFragment(['next_cursor' => 'eyJpZCI6MjAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0']);
+});
 
 it('will use the configured size parameter for cursor')
     ->get('cursor/?page[size]=10')
