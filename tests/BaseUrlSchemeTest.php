@@ -63,7 +63,9 @@ describe('base_url with HTTP/HTTPS schemes', function () {
 
             $result = TestModel::jsonPaginate()->nextPageUrl();
 
-            expect($result)->toStartWith('https://example.com');
+            // Strict assertion - must include pagination parameters
+            // Both formats acceptable: with or without slash before ?
+            expect($result)->toMatch('/^https:\/\/example\.com\/?\?page%5Bnumber%5D=2$/');
         });
 
         it('handles path with trailing slash in base_url', function () {
@@ -71,7 +73,26 @@ describe('base_url with HTTP/HTTPS schemes', function () {
 
             $result = TestModel::jsonPaginate()->nextPageUrl();
 
-            expect($result)->toStartWith('https://example.com/api');
+            // Strict assertion - must include pagination parameters
+            expect($result)->toMatch('/^https:\/\/example\.com\/api\/?\?page%5Bnumber%5D=2$/');
+        });
+
+        it('includes pagination params with trailing slash', function () {
+            config()->set('json-api-paginate.base_url', 'https://example.com/');
+
+            $result = TestModel::jsonPaginate()->nextPageUrl();
+
+            // Verify pagination parameters are never lost
+            expect($result)->toContain('page%5Bnumber%5D=2');
+        });
+
+        it('includes pagination params with path and trailing slash', function () {
+            config()->set('json-api-paginate.base_url', 'https://example.com/api/');
+
+            $result = TestModel::jsonPaginate()->nextPageUrl();
+
+            // Verify pagination parameters are never lost
+            expect($result)->toContain('page%5Bnumber%5D=2');
         });
 
     });
