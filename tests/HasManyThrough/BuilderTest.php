@@ -2,8 +2,6 @@
 
 namespace Spatie\JsonApiPaginate\Test\HasManyThrough;
 
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\Attributes\Test;
 
 class BuilderTest extends TestCase

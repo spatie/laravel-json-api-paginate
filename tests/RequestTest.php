@@ -52,7 +52,7 @@ it('will use the configured size parameter for cursor')
     ->get('cursor/?page[size]=10')
     ->assertJsonFragment([
         'per_page' => 10,
-        'next_cursor' => 'eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0'
+        'next_cursor' => 'eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0',
     ]);
 
 it('will use default size when page size is 0', function () {
@@ -79,7 +79,7 @@ it('will use default size when page size is illegal', function () {
     $response->assertJsonFragment(['per_page' => $default_size]);
 });
 
-it('will append other parameters to urls', function() {
+it('will append other parameters to urls', function () {
     $response = $this->get('/?page[size]=10&page[number]=3');
 
     $response->assertJsonFragment([
@@ -88,7 +88,7 @@ it('will append other parameters to urls', function() {
     ]);
 });
 
-it('will append other parameters to urls for cursor', function() {
+it('will append other parameters to urls for cursor', function () {
     $response = $this->get('cursor/?page[size]=10&page[cursor]=eyJpZCI6MTAsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0');
     
     $response->assertJsonFragment([
