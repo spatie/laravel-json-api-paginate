@@ -45,14 +45,6 @@ it('will not return more records that the configured maximum')
     ->expect(fn () => TestModel::jsonPaginate(15))
     ->toHaveCount(15);
 
-it('can set a custom base url in the config file', function () {
-    config()->set('json-api-paginate.base_url', 'https://example.com');
-
-    $result = TestModel::jsonPaginate()->nextPageUrl();
-
-    expect($result)->toEqual('https://example.com?page%5Bnumber%5D=2');
-});
-
 it('can use simple pagination', function () {
     config()->set('json-api-paginate.use_simple_pagination', true);
 

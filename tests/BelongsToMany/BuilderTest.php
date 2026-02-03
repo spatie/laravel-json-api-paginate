@@ -74,16 +74,6 @@ class BuilderTest extends TestCase
     }
 
     #[Test]
-    public function it_can_set_a_custom_base_url_in_the_config_file()
-    {
-        config()->set('json-api-paginate.base_url', 'https://example.com');
-
-        $paginator = TestModel::find(1)->results()->jsonPaginate();
-
-        $this->assertEquals('https://example.com?page%5Bnumber%5D=2', $paginator->nextPageUrl());
-    }
-
-    #[Test]
     public function it_can_use_simple_pagination()
     {
         config()->set('json-api-paginate.use_simple_pagination', true);

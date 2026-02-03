@@ -97,11 +97,6 @@ return [
     'use_fast_pagination' => false,
 
     /*
-     * Here you can override the base url to be used in the link items.
-     */
-    'base_url' => null,
-
-    /*
      * The name of the query parameter used for pagination
      */
     'pagination_parameter' => 'page',
@@ -204,6 +199,44 @@ If you've configured a custom method name using the `method_name` config option,
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+
+## Upgrading from v3.x to v4.x
+
+### Breaking Change: `base_url` Config Removed
+
+The `base_url` configuration option has been removed due to a design flaw where it would completely overwrite the request path, causing all pagination URLs to lose their resource-specific paths.
+
+**Before (v3.x - BROKEN for multi-endpoint APIs):**
+```php
+// config/json-api-paginate.php
+'base_url' => 'https://example.com',
+
+// Result: /api/users becomes https://example.com?page=2 (lost path!)
+// Result: /api/posts becomes https://example.com?page=2 (same URL!)
+```
+
+**After (v4.x - Use Laravel's native solution):**
+```php
+// app/Providers/AppServiceProvider.php
+public function boot()
+{
+    // Force HTTPS for all URLs
+    \Illuminate\Support\Facades\URL::forceScheme('https');
+
+    // Or force both scheme and domain (behind proxies/load balancers)
+    \Illuminate\Support\Facades\URL::forceRootUrl('https://example.com');
+}
+```
+
+This approach correctly preserves request paths while controlling the scheme and domain:
+- `/api/users` → `https://example.com/api/users?page=2` ✓
+- `/api/posts` → `https://example.com/api/posts?page=2` ✓
+
+**Why was this removed?**
+
+The `base_url` option used Laravel's `setPath()` method which completely replaces the pagination path. In real-world applications with multiple endpoints, this caused all resources to generate identical pagination URLs, breaking pagination for all but one endpoint.
+
+For more context, see [GitHub Discussion #53](https://github.com/spatie/laravel-json-api-paginate/discussions/53).
 
 ## Testing
 
