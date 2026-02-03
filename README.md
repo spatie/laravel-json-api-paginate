@@ -193,6 +193,14 @@ return [
 
 ```
 
+## IDE Support
+
+This package includes IDE helper stubs that provide autocompletion and type hints for the `jsonPaginate()` method in PhpStorm, VSCode (with Intelephense), and other modern PHP IDEs.
+
+After installing the package, your IDE will automatically recognize the `jsonPaginate()` method on Eloquent models, query builders, and relationships. The method signature includes proper type hints for all parameters and return types.
+
+If you've configured a custom method name using the `method_name` config option, you may need to create custom IDE hints for your specific method name. The included `_ide_helper.php` file can serve as a reference for this purpose.
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
