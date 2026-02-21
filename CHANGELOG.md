@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-json-api-paginate` will be documented in this file
 
+## 2.0.1 - 2026-02-21
+
+Add Laravel 13 support
+
 ## 1.16.3 - 2025-02-26
 
 ### What's Changed
