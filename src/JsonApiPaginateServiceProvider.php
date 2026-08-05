@@ -45,8 +45,8 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
                         : (config('json-api-paginate.use_fast_pagination') ? 'fastPaginate' : 'paginate')
                 );
 
-            if (config('json-api-paginate.use_fast_pagination') && ! (InstalledVersions::isInstalled('hammerstone/fast-paginate') || InstalledVersions::isInstalled('aaronfrancis/fast-paginate'))) {
-                abort(500, 'You need to install hammerstone/fast-paginate to use fast pagination.');
+            if (!method_exists($this, $paginationMethod)) {
+                abort(500, 'You need a fast pagination service provider such as aaronfrancis/fast-paginate to use fast pagination.');
             }
 
             $size = (int) request()->input($paginationParameter.'.'.$sizeParameter, $defaultSize);
