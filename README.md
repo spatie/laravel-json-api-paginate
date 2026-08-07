@@ -91,8 +91,9 @@ return [
     'use_cursor_pagination' => false,
 
     /*
-     * use simpleFastPaginate() or fastPaginate from https://github.com/aarondfrancis/fast-paginate
-     * use may installed it via `composer require aaronfrancis/fast-paginate`
+     * Use fastPaginate() or simpleFastPaginate() instead of the regular paginators.
+     * These are added by a separate package, such as spatie/laravel-fast-paginate,
+     * which you can install with `composer require spatie/laravel-fast-paginate`.
      */
     'use_fast_pagination' => false,
 
@@ -125,6 +126,20 @@ $model = YourModel::find(1);
 
 $model->relation()->jsonPaginate();
 ```
+
+### Fast pagination
+
+With `limit`/`offset` pagination, the database gets slower the deeper you page, because it has to walk past every skipped row. A deferred join avoids that by first fetching only the primary keys for the page, and then fetching the full rows for those keys.
+
+Install [spatie/laravel-fast-paginate](https://github.com/spatie/laravel-fast-paginate) to get that behavior.
+
+```bash
+composer require spatie/laravel-fast-paginate
+```
+
+Next, set `use_fast_pagination` to `true` in the config file. From then on, `jsonPaginate` calls `fastPaginate` instead of `paginate` (or `simpleFastPaginate` when `use_simple_pagination` is on). Nothing else changes, as the method signature and the returned paginator stay the same.
+
+The older `aaronfrancis/fast-paginate` and `hammerstone/fast-paginate` packages are recognized as well.
 
 ### Override default behavior
 
