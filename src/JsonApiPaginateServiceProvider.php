@@ -2,7 +2,6 @@
 
 namespace Spatie\JsonApiPaginate;
 
-use Composer\InstalledVersions;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -45,8 +44,17 @@ class JsonApiPaginateServiceProvider extends ServiceProvider
                         : (config('json-api-paginate.use_fast_pagination') ? 'fastPaginate' : 'paginate')
                 );
 
-            if (!method_exists($this, $paginationMethod)) {
-                abort(500, 'You need a fast pagination service provider such as aaronfrancis/fast-paginate to use fast pagination.');
+            if (config('json-api-paginate.use_fast_pagination')) {
+                // Fast pagination is added by a macro, so `method_exists` would never see
+                // it. Checking for the macro instead means any package that registers
+                // one will do, rather than a hardcoded list of known packages.
+                $providesFastPagination = $this instanceof EloquentBuilder
+                    ? EloquentBuilder::hasGlobalMacro($paginationMethod) || $this->hasMacro($paginationMethod)
+                    : $this::hasMacro($paginationMethod);
+
+                if (! $providesFastPagination) {
+                    abort(500, "No installed package provides a `{$paginationMethod}` method. Install one, such as spatie/laravel-fast-paginate, or turn off `use_fast_pagination`.");
+                }
             }
 
             $size = (int) request()->input($paginationParameter.'.'.$sizeParameter, $defaultSize);
