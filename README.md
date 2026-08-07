@@ -127,6 +127,20 @@ $model = YourModel::find(1);
 $model->relation()->jsonPaginate();
 ```
 
+### Fast pagination
+
+With `limit`/`offset` pagination, the database gets slower the deeper you page, because it has to walk past every skipped row. A deferred join avoids that by first fetching only the primary keys for the page, and then fetching the full rows for those keys.
+
+Install [spatie/laravel-fast-paginate](https://github.com/spatie/laravel-fast-paginate) to get that behavior.
+
+```bash
+composer require spatie/laravel-fast-paginate
+```
+
+Next, set `use_fast_pagination` to `true` in the config file. From then on, `jsonPaginate` calls `fastPaginate` instead of `paginate` (or `simpleFastPaginate` when `use_simple_pagination` is on). Nothing else changes, as the method signature and the returned paginator stay the same.
+
+The older `aaronfrancis/fast-paginate` and `hammerstone/fast-paginate` packages are recognized as well.
+
 ### Override default behavior
 
 By default the maximum page size is set to 30. You can change this number in the `config` file or just pass the value to  `jsonPaginate`.
